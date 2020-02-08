@@ -7,7 +7,11 @@ module.exports = [
         path:           '/signin',
         method:         'get',
         contentType:    'application/json',
-        controller:     controllers.signin
+        controller:     controllers.signin,
+        constraints: {
+            username: 'required',
+            password: 'required'
+        }
     },
 
     // The visitor wants to register (new account)
