@@ -9,8 +9,12 @@ module.exports = [
         contentType:    'application/json',
         controller:     controllers.signin,
         constraints: {
-            username: 'required',
-            password: 'required'
+            username: {
+                required: true
+            },
+            password: {
+                required: true
+            }
         }
     },
 
@@ -19,6 +23,16 @@ module.exports = [
         path:           '/signup',
         method:         'get',
         contentType:    'application/json',
-        controller:     controllers.signup
+        controller:     controllers.signup,
+        constraints: {
+            username: {
+                required: 'notBlank', // notNull , notUndefined
+                minLength: 3,
+                unique: {model: 'User'}
+            },
+            password: {
+                required: 'notBlank'
+            }
+        }
     },
 ];

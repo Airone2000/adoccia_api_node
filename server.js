@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const routes = require('./app/routes/routes');
 const validator = require('./app/services/validator');
 
+require('./app/models/User');
+
 // Parse env vars
 dotenv.config();
 
@@ -48,8 +50,8 @@ routes.forEach(route => {
 
     // Validate the payload
     if (constraints !== null) {
-        server[method](path, (req, res, next) => {
-            const violations = validator.validate(req.body, constraints);
+        server[method](path, async (req, res, next) => {
+            const violations = await validator.validate(req.body, constraints);
             if (violations.length === 0) next();
             else {
                 res.statusCode = 400;
